@@ -1,10 +1,10 @@
 import requests
 import csv
 
-from .models import Collection, Owner, Contract
+from .models import Collection, Owner, Contract, CollectionItem
 
 
-def fetch_all_results(max_records=1000):
+def fetch_all_results(max_records=300):
     all_results = []
     url = "https://api.opensea.io/api/v2/collections"
     headers = {
@@ -14,14 +14,16 @@ def fetch_all_results(max_records=1000):
     response = requests.get(url, headers=headers)
     data = response.json()
     next = data['next']
+    batch = 0
     total_records_fetched = len(data['collections'])
 
     while next and total_records_fetched < max_records:
+        batch = batch+1
+        print(f"Fetching Records for the batch {batch}")
         params = {"next": next, "chain": "ethereum"}
         response = requests.get(url, headers=headers, params=params)
 
         data = response.json()
-        print(data)
         results = data['collections']
         all_results.extend(results)
         total_records_fetched += len(results)
@@ -60,9 +62,8 @@ def transform(collections):
 def load(data):
     # Create Collection objects
     for row in data[1:]:
-        print(row)
         collection = Collection.objects.create(name=row['collection'])
-        collection_item = Collection.objects.create(
+        collection_item = CollectionItem.objects.create(
             collection=collection,
             name=row['name'],
             description=row['description'],
