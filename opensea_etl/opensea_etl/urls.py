@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from .views import run_etl_with_limit
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('run_etl_with_limit/', run_etl_with_limit, name='run_etl_with_limit'),
 ]

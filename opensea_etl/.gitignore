@@ -1,0 +1,14 @@
+# Virtual Env
+pyenv
+.env
+.venv
+venv/
+.python-version
+
+#Idea files
+.idea
+#python generated
+*.pyc
+*.egg-info
+__pycache__/
+.pytest_cache
