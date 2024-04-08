@@ -81,7 +81,7 @@ WSGI_APPLICATION = 'opensea_etl.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.getenv('POSTGRES_DATABASE', 'partner_integration'),
+        'NAME': os.getenv('POSTGRES_DATABASE', 'opensea_etl'),
         'USER': os.getenv('POSTGRES_USERNAME', 'postgres'),
         'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'postgres'),
         'HOST': os.getenv('POSTGRES_REMOTE_HOST', 'localhost'),
